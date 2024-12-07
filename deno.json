@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.js"
+    "dev": "deno run --watch --allow-read main.js"
   },
   "imports": {}
 }
