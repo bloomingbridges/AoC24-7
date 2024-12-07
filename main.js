@@ -34,7 +34,7 @@ export function calibrate( input ) {
 }
 
 export function solve( test_value, operands ) {
-  console.log("\n// SOLVING..", test_value, operands);
+  // console.log("\n// SOLVING..", test_value, operands);
   const SLOTS = operands.length - 1;
   // console.log(`// FILLING ${SLOTS} AVAILABLE SLOT(S)`);
   const EVALUATED_COMBOS = [];
@@ -66,7 +66,7 @@ function evaluate( test_value, operands, operators ) {
     console.log(`🟢 WORKING SOLUTION: ${test_value} == ${EQUATION.join(' ')}`);
     return true;
   } else {
-    console.log(`🔴 INCORRECT SOLUTION: ${test_value} != ${EQUATION.join(' ')} [${result}]`);
+    // console.log(`🔴 INCORRECT SOLUTION: ${test_value} != ${EQUATION.join(' ')} [${result}]`);
     return false;
   }
 }
@@ -85,6 +85,6 @@ function iterate( accumulator, combo, index = 0 ) {
 
 if (import.meta.main) {
   console.log(TITLE);
-  // const INPUT = Deno.readTextFileSync("./input.txt");
-  calibrate(EXAMPLE);
+  const INPUT = Deno.readTextFileSync("./input.txt");
+  calibrate(INPUT);
 }
