@@ -9,3 +9,9 @@ export function MULTIPLY( a, b ) {
 };
 MULTIPLY.operation = "multiply";
 MULTIPLY.symbol = '*';
+
+export function CONCAT( a, b ) {
+    return parseInt(`${a}${b}`);
+};
+CONCAT.operation = "concatenate";
+CONCAT.symbol = '||';

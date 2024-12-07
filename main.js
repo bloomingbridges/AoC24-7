@@ -1,4 +1,4 @@
-import { ADD, MULTIPLY } from "./operators.js";
+import { ADD, MULTIPLY, CONCAT } from "./operators.js";
 
 export const TITLE = "// Advent of Code 2024 - Day 7: Bridge Repair //////////////////////////////////";
 export const EXAMPLE = `190: 10 19
@@ -10,7 +10,7 @@ export const EXAMPLE = `190: 10 19
                         192: 17 8 14
                         21037: 9 7 18 13
                         292: 11 6 16 20`;
-export const OPERATORS = [ADD, MULTIPLY];
+export const OPERATORS = [ADD, MULTIPLY, CONCAT];
 
 export function calibrate( input ) {
   const ROWS = input.split("\n");
@@ -85,6 +85,6 @@ function iterate( accumulator, combo, index = 0 ) {
 
 if (import.meta.main) {
   console.log(TITLE);
-  const INPUT = Deno.readTextFileSync("./input.txt");
-  calibrate(INPUT);
+  // const INPUT = Deno.readTextFileSync("./input.txt");
+  calibrate(EXAMPLE);
 }
