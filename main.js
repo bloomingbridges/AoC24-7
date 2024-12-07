@@ -49,14 +49,18 @@ export function solve( test_value, operands ) {
 
 function evaluate( test_value, operands, operators ) {
   console.log("// GIVEN OPERATORS:", operators.map(( op ) => op.operation));
-  let result = operators[0].operation === "multiply" ? 1 : 0;
+  let result = 0;
   const EQUATION = [];
-  for ( let o = 0; o < operands.length; o++ ) {
-    EQUATION.push(operands[o]);
-    const OP = operators[0];
-    result = OP(result, operands[o]);
-    if (o < operators.length)
-      EQUATION.push(OP.symbol);
+  for ( let op = 0; op < operators.length; op++ ) {
+    const OP = operators[op];
+    const OPERAND_A = (op > 0) ? result : operands[0];
+    const OPERAND_B = operands[op+1];
+    result = OP(OPERAND_A, OPERAND_B);
+    // Accumulate an equation string for debugging /////////////////////////////
+    EQUATION.push(operands[op]);
+    EQUATION.push(OP.symbol);
+    if (op == operators.length - 1)
+      EQUATION.push(operands[op+1]);
   }
   console.log(`${test_value}: ${result}`);
   if (result == test_value) {
