@@ -34,21 +34,20 @@ export function calibrate( input ) {
 }
 
 export function solve( test_value, operands ) {
-  console.log("// SOLVING..", test_value, operands);
+  console.log("\n// SOLVING..", test_value, operands);
   const SLOTS = operands.length - 1;
-  const MAX_COMBOS = SLOTS * OPERATORS.length;
+  // console.log(`// FILLING ${SLOTS} AVAILABLE SLOT(S)`);
+  const EVALUATED_COMBOS = [];
   const COMBOS = [];
-  console.log(`// FILLING ${SLOTS} AVAILABLE SLOT(S) - ${MAX_COMBOS} POSSIBILITIES`);
-  while (COMBOS.length < MAX_COMBOS) {
-    const COMBO = new Array(SLOTS).fill(1);
-    console.log(COMBO.join(''));
-    COMBOS.push(evaluate(test_value, operands, COMBO.map(( index ) => OPERATORS[index])));
-  }
-  return COMBOS.includes(true);
+  iterate(COMBOS, new Array(SLOTS).fill(0));
+  COMBOS.forEach(( combo ) => {
+    EVALUATED_COMBOS.push(evaluate(test_value, operands, combo.map(( index ) => OPERATORS[index])));
+  });
+  return EVALUATED_COMBOS.includes(true);
 }
 
 function evaluate( test_value, operands, operators ) {
-  console.log("// GIVEN OPERATORS:", operators.map(( op ) => op.operation));
+  // console.log("// GIVEN OPERATORS:", operators.map(( op ) => op.operation));
   let result = 0;
   const EQUATION = [];
   for ( let op = 0; op < operators.length; op++ ) {
@@ -62,11 +61,25 @@ function evaluate( test_value, operands, operators ) {
     if (op == operators.length - 1)
       EQUATION.push(operands[op+1]);
   }
-  console.log(`${test_value}: ${result}`);
-  if (result == test_value) {
+  // console.log(`${test_value}: ${result}`);
+  if (result === test_value) {
     console.log(`🟢 WORKING SOLUTION: ${test_value} == ${EQUATION.join(' ')}`);
+    return true;
   } else {
-    console.log(`🔴 INCORRECT SOLUTION: ${test_value} != ${EQUATION.join(' ')}`);
+    console.log(`🔴 INCORRECT SOLUTION: ${test_value} != ${EQUATION.join(' ')} [${result}]`);
+    return false;
+  }
+}
+
+function iterate( accumulator, combo, index = 0 ) {
+  if (index < combo.length) {
+    for (let i = 0; i < OPERATORS.length; i++) {
+      combo[index] = i;
+      iterate(accumulator, combo, index + 1);
+    }
+  } else {
+    accumulator.push(Array.from(combo));
+    // console.log(combo);
   }
 }
 
