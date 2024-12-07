@@ -85,6 +85,6 @@ function iterate( accumulator, combo, index = 0 ) {
 
 if (import.meta.main) {
   console.log(TITLE);
-  // const INPUT = Deno.readTextFileSync("./input.txt");
-  calibrate(EXAMPLE);
+  const INPUT = Deno.readTextFileSync("./input.txt");
+  calibrate(INPUT);
 }
